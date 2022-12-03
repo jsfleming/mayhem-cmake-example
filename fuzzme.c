@@ -6,38 +6,24 @@
 int fuzzme(char *buf)
 {
   if(strlen(buf) >= 3)
-    if(buf[0] == 'b')
-      if(buf[1] == 'u')
-        if(buf[2] == 'g') {
-          printf("You've got it!");
-          abort();
-        }
+    if(buf[0] == 'm')
+      if(buf[1] == 'a')
+        if(buf[2] == 'y')
+          if(buf[3] == 'h')
+            if(buf[4] == 'e')
+              if(buf[5] == 'm')
+                if(buf[6] == '!')
+                  if(buf[8] == '%') {
+                    printf("You've got it!");
+                    abort();
+                  }
     return 0;
 }
 
-#define BUFSZ 256
 
-int main(int argc, char** argv)
+int LLVMFuzzerTestOneInput(char *data, size_t size)
 {
-    char buf[BUFSZ] = { 0 };
-    FILE* f = NULL;
-    size_t nr = 0;
-
-    if (2 > argc) {
-        fprintf(stderr, "usage: %s PAYLOAD\n", argv[0]);
-        return 1;
-    }
-
-    f = fopen(argv[1], "rb");
-    assert(f);
-
-    nr = fread(buf, sizeof(buf[0]), BUFSZ, f);
-    assert(nr > 0);
-    buf[BUFSZ-1] = '\0';
-
-    fuzzme(buf);
-
-    fclose(f);
+    fuzzme(data);
 
     return 0;
 }
