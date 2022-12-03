@@ -9,4 +9,3 @@ if (NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 endif()
 target_compile_options(fuzzme PUBLIC -fsanitize=fuzzer)
 target_link_options(fuzzme PUBLIC -fsanitize=fuzzer)
-

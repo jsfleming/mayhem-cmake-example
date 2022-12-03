@@ -1,5 +1,5 @@
 # Build Stage
-FROM --platform=linux/amd64 ubuntu:20.04 as builder
+FROM ubuntu:20.04 as builder
 
 ## Install build dependencies.
 RUN apt-get update && \
@@ -9,16 +9,15 @@ RUN apt-get update && \
 ADD . /mayhem-cmake-example
 WORKDIR /mayhem-cmake-example
 
-ENV CC=clang
-ENV CXX=clang++
-
 ## TODO: ADD YOUR BUILD INSTRUCTIONS HERE.
-RUN mkdir build && cd build && cmake .. && make
-
+RUN mkdir build
+WORKDIR /mayhem-cmake-example/build
+RUN CC=clang CXX=clang cmake ..
+RUN make
 
 # Package Stage
-FROM --platform=linux/amd64 ubuntu:20.04
+FROM ubuntu:20.04
 
 ## TODO: Change <Path in Builder Stage>
-COPY --from=builder /mayhem-cmake-example/build/fuzzme /
+COPY --from=builder  /mayhem-cmake-example/build/fuzzme /
 

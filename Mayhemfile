@@ -38,4 +38,3 @@ cmds:
     ## limit as it can severely affect your fuzzer performance.
     # max_length: 8192
 
-
